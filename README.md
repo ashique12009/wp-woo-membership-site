@@ -10,4 +10,6 @@ Install and activate woocommerce.
 2. Create some member products without price e.g: Silver, Gold, Platinum etc.
 3. Create membership variations from admin left menu e.g: Silver member product can be for Individual or for Family.
 Also Silver individual can 1 year, 2 years and so on.
+See screenshot: 
+https://prnt.sc/tpCOKQeVw2U8
 4. Enter discount price for target product and member product e.g: Silver membership user will get discount for target product.
