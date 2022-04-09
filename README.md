@@ -13,3 +13,5 @@ Also Silver individual can 1 year, 2 years and so on.
 See screenshot: 
 https://prnt.sc/tpCOKQeVw2U8
 4. Enter discount price for target product and member product e.g: Silver membership user will get discount for target product.
+See screenshot:
+https://prnt.sc/0YPLXh3P7YXs
