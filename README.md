@@ -17,4 +17,4 @@ See screenshot:
 ![s2](https://user-images.githubusercontent.com/5427021/162575572-c43e9c3e-a05f-4396-83f2-d125d8e3a1dd.PNG)
 
 Affected output after adding discount products to cart and checkout see screenshot:
-![s3](https://user-images.githubusercontent.com/5427021/162575692-ea1d093c-a867-4aeb-aaa5-3cfaa4372a37.PNG)
+![s3](https://user-images.githubusercontent.com/5427021/162575742-c744d35c-ee63-411c-9115-15d46a209fe9.PNG)
