@@ -10,7 +10,7 @@ function sf_member_options_admin_menu() {
 		'member_options',
 		'sf_member_registration_form_view',
 		'dashicons-admin-page',
-		58
+		61
 	);
 
 }
@@ -46,7 +46,7 @@ function sf_member_discount_options_admin_menu() {
 		'member_discount',
 		'sf_member_discount_form_view',
 		'dashicons-admin-page',
-		59
+		62
 	);
 
 }
@@ -80,7 +80,7 @@ function sf_member_renew_product_price_menu() {
 		'member_renew_price',
 		'sf_member_renew_price_form_view',
 		'dashicons-admin-page',
-		60
+		63
 	);
 
 }
@@ -93,7 +93,7 @@ add_action('admin_menu', 'sf_member_renew_product_price_menu');
 function sf_member_renew_price_form_view() {
 	$action 	 	= isset($_REQUEST['action']) ? $_REQUEST['action'] : '';
 	if ($action == 'edit') {
-		include SF_CHILD_THEME_DIR . '/member-renew-views/member-discount-edit-view.php';
+		include SF_CHILD_THEME_DIR . '/member-renew-views/member-renew-edit-view.php';
 	}
 	elseif ($action == 'delete') {
 		include SF_CHILD_THEME_DIR . '/member-renew-views/member-renew-remove.php';

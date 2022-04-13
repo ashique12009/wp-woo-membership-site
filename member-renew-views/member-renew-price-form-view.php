@@ -112,7 +112,7 @@
                                 <td><?php echo $value->day_month_year;?></td>
                                 <td><?php echo $value->renew_price;?></td>
                                 <td>
-                                    <a class="btn btn-success btn-sm" href="<?php echo admin_url('admin.php?page=member_renew_price&primary_id='.$value->id.'&edit_pid=' . $value->post_id . '&member_type=' . $value->type);?>">Edit</a>
+                                    <a class="btn btn-success btn-sm" href="<?php echo admin_url('admin.php?page=member_renew_price&action=edit&primary_id='.$value->id.'&edit_pid=' . $value->post_id . '&member_type=' . $value->type);?>">Edit</a>
                                     <a class="btn btn-danger btn-sm" href="<?php echo admin_url('admin.php?page=member_renew_price&primary_id='.$value->id.'&action=delete');?>">Delete</a>
                                 </td>
                             </tr>
