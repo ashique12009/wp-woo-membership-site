@@ -23,23 +23,23 @@ function sf_membership_renew_options_form_submission() {
         }
         else {
             // Check duplicate member type
-            if (check_member_type_duplicacy($member_type, $member_product_id, $start_date, $end_date) === false) {
+            if (check_member_renew_type_duplicacy($member_type, $member_product_id, $duration, $duration_day_month_year) === false) {
                 $insert_data = [
-                    'user_id'       => $current_user_id,
-                    'post_id'       => $member_product_id,
-                    'type'          => $member_type,
-                    'start_date'    => $start_date,
-                    'end_date'      => $end_date,
-                    'price'         => $price,
+                    'posted_by'      => $current_user_id,
+                    'post_id'        => $member_product_id,
+                    'type'           => $member_type,
+                    'duration'       => $duration,
+                    'day_month_year' => $duration_day_month_year,
+                    'renew_price'    => $price,
                 ];
 
-                $wpdb->insert($wpdb->prefix . 'sf_member_options', $insert_data);
+                $wpdb->insert($wpdb->prefix . 'sf_member_renew_options', $insert_data);
                 
                 // Update post meta, update this product meta as type, duration, price
-                update_post_meta($member_product_id, 'member_type', $member_type);
-                update_post_meta($member_product_id, 'member_start_date', $start_date);
-                update_post_meta($member_product_id, 'member_end_date', $end_date);
-                update_post_meta($member_product_id, 'member_type_price', $price);
+                update_post_meta($member_product_id, 'member_renew_type', $member_type);
+                update_post_meta($member_product_id, 'member_renew_duration', $duration);
+                update_post_meta($member_product_id, 'member_renew_day_month_year', $duration_day_month_year);
+                update_post_meta($member_product_id, 'member_renew_price', $price);
                 
                 $url = $redirect_form_url . '&status=3';
             }

@@ -141,3 +141,15 @@ function get_membership_renew_list() {
 
     return $result;
 }
+
+function check_member_renew_type_duplicacy($member_type, $member_product_id, $duration, $duration_day_month_year) {
+    global $wpdb;
+    
+    $sql = "SELECT * FROM {$wpdb->prefix}sf_member_renew_options WHERE type='$member_type' AND duration='$duration' AND day_month_year='$duration_day_month_year' AND post_id =" . $member_product_id;
+    $result = $wpdb->get_results($sql);
+    
+    if (count($result) > 0)
+        return true;
+    else 
+        return false;
+}

@@ -21,6 +21,7 @@ include 'includes/member-options-schema.php';
 include 'includes/admin-menu-member-options.php';
 include 'includes/member-options-submission.php';
 include 'includes/member-discount-submission.php';
+include 'includes/member-renew-options-submission.php';
 include 'includes/member-queries.php';
 include 'includes/update-user-meta.php';
 include 'includes/woo-hook-tasks.php';

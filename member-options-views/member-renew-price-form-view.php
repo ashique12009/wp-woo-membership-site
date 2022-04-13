@@ -5,7 +5,7 @@
     <?php if ($status_code == 1) : ?>
     <div class="alert alert-danger"><?php echo 'Membership type is missing!';?></div>
     <?php elseif ($status_code == 2) : ?>
-    <div class="alert alert-danger"><?php echo 'Start date or end date is missing!';?></div>
+    <div class="alert alert-danger"><?php echo 'Duration is missing!';?></div>
     <?php elseif ($status_code == 3) : ?>
     <div class="alert alert-success"><?php echo 'Successfully submitted!';?></div>
     <?php elseif ($status_code == 4) : ?>
@@ -90,7 +90,7 @@
     <div class="container mt-5">
         <div class="row">
             <div class="col-md-12">
-                <h3>Membership type list:</h3>
+                <h3>Renew membership price list:</h3>
                 <?php $result = get_membership_renew_list();?>
                 <table class="table table-bordered">
                     <thead>
