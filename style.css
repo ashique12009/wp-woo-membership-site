@@ -13,9 +13,11 @@
 */
 
 /* Membership purchase form */
-#membership-purchase-form label{
+#membership-purchase-form label,
+#membership-renew-purchase-form label{
     display: block;
 }
-#membership-purchase-form .form-group{
+#membership-purchase-form .form-group,
+#membership-renew-purchase-form .form-group{
     margin-bottom: 10px;
 }

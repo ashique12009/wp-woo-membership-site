@@ -22,14 +22,14 @@
   <div class="card accordion-card">
     <div class="card-header" id="headingTwo">
       <h2 class="mb-0 mt-0 text-center">
-        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+        <button id="slideToggleBtn" class="btn btn-link collapsed" type="button">
         <h3>Membership renew form</h3>
         </button>
       </h2>
     </div>
     <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
       <div class="card-body">
-        <form action="<?php echo esc_url(admin_url('admin-post.php'));?>" method="post">
+        <form id="membership-renew-purchase-form" action="<?php echo esc_url(admin_url('admin-post.php'));?>" method="post">
           <input type="hidden" name="post_id" value="<?php echo $pid;?>">
           <input type="hidden" name="action" value="membership_renew_action">
           <input type="hidden" name="current_page_url" value="<?php echo $current_page_url;?>">
@@ -52,40 +52,21 @@
             </div>
 
             <div class="form-group col-md-6 col-xs-12">
-              <label for="mtype">Membership type:</label>
-              <select name="mtype" id="mtype-renew" class="form-control">
+              <label for="mtype">Membership type and duration:</label>
+              <?php $member_product_types = get_member_products($pid);?>
+              <select name="mtype_duration" id="renew_mtype_duration" class="form-control">
                 <option value="0">-- Select membership type --</option>
-                <option value="Individual">Individual</option>
-                <option value="Family">Family (up-to 4 persons)</option>
+                  <?php foreach ($member_product_types as $value) : ?>
+                  <?php 
+                    $start_date = strtotime($value->start_date);
+                    $end_date = strtotime($value->end_date);
+                    $diff = $end_date - $start_date;
+                    $total_days = round($diff / (60 * 60 * 24));
+                  ?>
+                  <option value="<?php echo $value->id;?>"><?php echo $value->type . ' - ' . $value->start_date . ' TO ' . $value->end_date . ' - ' . '(' . $total_days . ' days' . ')';?></option>
+                <?php endforeach; ?>
               </select>
             </div>
-
-            <div class="form-group col-md-6 col-xs-12">
-              <label for="mduration">Membership duration:</label>
-              <select name="mduration" id="mduration-renew" class="form-control">
-                <option value="0">-- Select membership duration --</option>
-                <option value="1 Year">1 Year</option>
-                <option value="2 Year">2 Year</option>
-                <option value="3 Year">3 Year</option>
-              </select>
-            </div>
-
-            <?php 
-              // $one_year_price_individual = ((get_field('fee_for_1_year_individual', $pid) == "" || get_field('fee_for_1_year_individual', $pid) == '0')) ? 0 : get_field('fee_for_1_year_individual', $pid);
-              // $two_year_price_individual = ((get_field('fee_for_2_year_individual', $pid) == "" || get_field('fee_for_2_year_individual', $pid) == '0')) ? 0 : get_field('fee_for_2_year_individual', $pid);
-              // $three_year_price_individual = ((get_field('fee_for_3_year_individual', $pid) == "" || get_field('fee_for_3_year_individual', $pid) == '0')) ? 0 : get_field('fee_for_3_year_individual', $pid);
-
-              // $one_year_price_family = ((get_field('fee_for_1_year_family', $pid) == "" || get_field('fee_for_1_year_family', $pid) == '0')) ? 0 : get_field('fee_for_1_year_family', $pid);
-              // $two_year_price_family = ((get_field('fee_for_2_year_family', $pid) == "" || get_field('fee_for_2_year_family', $pid) == '0')) ? 0 : get_field('fee_for_2_year_family', $pid);
-              // $three_year_price_family = ((get_field('fee_for_3_year_family', $pid) == "" || get_field('fee_for_3_year_family', $pid) == '0')) ? 0 : get_field('fee_for_3_year_family', $pid);
-            ?>
-            <input type="hidden" id="fee_for_1_year_individual" value="<?php echo $one_year_price_individual;?>">
-            <input type="hidden" id="fee_for_2_year_individual" value="<?php echo $two_year_price_individual;?>">
-            <input type="hidden" id="fee_for_3_year_individual" value="<?php echo $three_year_price_individual;?>">
-
-            <input type="hidden" id="fee_for_1_year_family" value="<?php echo $one_year_price_family;?>">
-            <input type="hidden" id="fee_for_2_year_family" value="<?php echo $two_year_price_family;?>">
-            <input type="hidden" id="fee_for_3_year_family" value="<?php echo $three_year_price_family;?>">
 
             <div class="form-group col-md-6 col-xs-12">
               <label for="mcharge">Membership charge:</label>

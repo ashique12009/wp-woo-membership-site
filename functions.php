@@ -42,7 +42,7 @@ function sf_enqueue_styles() {
 add_action('wp_enqueue_scripts', 'sf_enqueue_styles');
 
 function sf_enqueue_admin_script($hook) {
-    if ( 'toplevel_page_member_options' != $hook && 'toplevel_page_member_discount' != $hook) {
+    if ( 'toplevel_page_member_options' != $hook && 'toplevel_page_member_discount' != $hook && 'toplevel_page_member_renew_price' != $hook) {
         return;
     }
     wp_enqueue_style( 'admin-bootstrap-style', '//maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css', [], time(), 'all');

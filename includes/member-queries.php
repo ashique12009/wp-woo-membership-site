@@ -131,3 +131,13 @@ function get_discount_price($product_id, $membership_product_id) {
     else 
         return 0;
 }
+
+// RENEW queries
+function get_membership_renew_list() {
+    global $wpdb;
+
+    $sql = "SELECT * FROM {$wpdb->prefix}sf_member_renew_options";
+    $result = $wpdb->get_results($sql);
+
+    return $result;
+}

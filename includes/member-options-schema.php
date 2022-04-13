@@ -26,7 +26,17 @@ function sf_create_member_tables() {
         created_at datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
         PRIMARY KEY (id)
         ) $charset_collate;
-        ";
+        CREATE TABLE `{$wpdb->prefix}sf_member_renew_options` (
+        id bigint(128) NOT NULL AUTO_INCREMENT,
+        post_id int(11) NOT NULL DEFAULT 0,
+        type varchar(128) NOT NULL,
+        duration int(11) NOT NULL,
+        day_month_year varchar(8) NOT NULL,
+        renew_price decimal(10,2) NOT NULL DEFAULT 0,
+        posted_by int(11) NOT NULL DEFAULT 0,
+        created_at datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+        PRIMARY KEY (id)
+        ) $charset_collate";
     
     dbDelta($sql);
 }

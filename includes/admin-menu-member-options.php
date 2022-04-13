@@ -68,3 +68,37 @@ function sf_member_discount_form_view() {
 		include SF_CHILD_THEME_DIR . '/member-discount-options-views/member-discount-list-view.php';
 	}
 }
+
+/**
+ * Adding member options page menu for discount
+ */
+function sf_member_renew_product_price_menu() {
+	add_menu_page(
+		'Membership Renew Price',
+		'Membership Renew Price',
+		'manage_options',
+		'member_renew_price',
+		'sf_member_renew_price_form_view',
+		'dashicons-admin-page',
+		60
+	);
+
+}
+
+add_action('admin_menu', 'sf_member_renew_product_price_menu');
+
+/**
+ * Include member renew price page view
+ */
+function sf_member_renew_price_form_view() {
+	$action 	 	= isset($_REQUEST['action']) ? $_REQUEST['action'] : '';
+	if ($action == 'edit') {
+		include SF_CHILD_THEME_DIR . '/member-options-views/member-discount-edit-view.php';
+	}
+	elseif ($action == 'delete') {
+		include SF_CHILD_THEME_DIR . '/member-options-views/member-discount-delete-view.php';
+	}
+	else {
+		include SF_CHILD_THEME_DIR . '/member-options-views/member-renew-price-form-view.php';
+	}
+}
