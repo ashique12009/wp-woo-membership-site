@@ -93,12 +93,12 @@ add_action('admin_menu', 'sf_member_renew_product_price_menu');
 function sf_member_renew_price_form_view() {
 	$action 	 	= isset($_REQUEST['action']) ? $_REQUEST['action'] : '';
 	if ($action == 'edit') {
-		include SF_CHILD_THEME_DIR . '/member-options-views/member-discount-edit-view.php';
+		include SF_CHILD_THEME_DIR . '/member-renew-views/member-discount-edit-view.php';
 	}
 	elseif ($action == 'delete') {
-		include SF_CHILD_THEME_DIR . '/member-options-views/member-discount-delete-view.php';
+		include SF_CHILD_THEME_DIR . '/member-renew-views/member-renew-remove.php';
 	}
 	else {
-		include SF_CHILD_THEME_DIR . '/member-options-views/member-renew-price-form-view.php';
+		include SF_CHILD_THEME_DIR . '/member-renew-views/member-renew-price-form-view.php';
 	}
 }
