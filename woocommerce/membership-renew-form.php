@@ -2,6 +2,8 @@
   $current_user = wp_get_current_user(); 
   $current_page_url = get_permalink();
   $error_code = isset($_REQUEST['renew-error']) ? $_REQUEST['renew-error'] : '';
+  global $product;
+  $pid = $product->get_id();
 ?>
 
 <?php if ($error_code == 1) : ?>
@@ -53,17 +55,11 @@
 
             <div class="form-group col-md-6 col-xs-12">
               <label for="mtype">Membership type and duration:</label>
-              <?php $member_product_types = get_member_products($pid);?>
+              <?php $member_product_types = get_member_renew_products($pid);?>
               <select name="mtype_duration" id="renew_mtype_duration" class="form-control">
                 <option value="0">-- Select membership type --</option>
                   <?php foreach ($member_product_types as $value) : ?>
-                  <?php 
-                    $start_date = strtotime($value->start_date);
-                    $end_date = strtotime($value->end_date);
-                    $diff = $end_date - $start_date;
-                    $total_days = round($diff / (60 * 60 * 24));
-                  ?>
-                  <option value="<?php echo $value->id;?>"><?php echo $value->type . ' - ' . $value->start_date . ' TO ' . $value->end_date . ' - ' . '(' . $total_days . ' days' . ')';?></option>
+                  <option value="<?php echo $value->id;?>"><?php echo $value->type . ' - ' . $value->duration . ' ' . $value->day_month_year;?></option>
                 <?php endforeach; ?>
               </select>
             </div>

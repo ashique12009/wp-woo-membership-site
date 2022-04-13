@@ -173,3 +173,26 @@ function edit_renew_membership_duplicacy_check($primary_id, $product_id, $member
     else 
         return true;
 }
+
+function get_member_renew_products($product_id) {
+    global $wpdb;
+    $sql = "SELECT * FROM {$wpdb->prefix}sf_member_renew_options WHERE post_id=" . $product_id;
+    $result = $wpdb->get_results($sql);
+
+    if (count($result) > 0)
+        return $result;
+    else 
+        return [];
+}
+
+function get_membership_rewnew_price($mduration_table_primary_id) {
+    global $wpdb;
+
+    $sql = "SELECT renew_price FROM {$wpdb->prefix}sf_member_renew_options WHERE id=" . $mduration_table_primary_id;
+    $result = $wpdb->get_results($sql);
+
+    if (count($result) > 0)
+        return $result;
+    else 
+        return [];
+}
