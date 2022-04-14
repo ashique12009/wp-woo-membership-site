@@ -196,3 +196,15 @@ function get_membership_rewnew_price($mduration_table_primary_id) {
     else 
         return [];
 }
+
+function get_membership_rewnew_info($mduration_table_primary_id) {
+    global $wpdb;
+
+    $sql = "SELECT * FROM {$wpdb->prefix}sf_member_renew_options WHERE id=" . $mduration_table_primary_id;
+    $result = $wpdb->get_results($sql);
+
+    if (count($result) > 0)
+        return $result;
+    else 
+        return [];
+}

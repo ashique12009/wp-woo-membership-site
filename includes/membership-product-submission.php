@@ -34,7 +34,7 @@ function sf_membership_form_submission() {
         elseif ($femail != $cemail) {
             $url = $current_page_url . '?error=2';
         }
-        elseif ($mduration_table_primary_id == '0') {
+        elseif ($mduration_table_primary_id == '0' || $mduration_table_primary_id == '') {
             $url = $current_page_url . '?error=3';
         }
         elseif ($mcharge != $fee_price) {
@@ -120,8 +120,7 @@ function ctp_renew_membership_form_submission() {
     $first_name                 = trim($_POST['first_name']);
     $last_name                  = trim($_POST['last_name']);
     $femail                     = trim($_POST['email']);
-    $mtype                      = trim($_POST['mtype']);
-    $mduration                  = trim($_POST['mduration']);
+    // Get type, duration and day_month_year
     $mcharge                    = trim($_POST['mcharge']);
     $mduration_table_primary_id = trim($_POST['mtype_duration']);
     $post_id                    = trim($_POST['post_id']);
@@ -134,14 +133,12 @@ function ctp_renew_membership_form_submission() {
 
     // Check this user has this selected membership
     // If not then redirect him to error page
-    $fee_price_object = get_membership_price($mduration_table_primary_id);
-    $fee_price = isset($fee_price_object[0]->price) ? $fee_price_object[0]->price : 0;
-    $member_data = get_member_data($mduration_table_primary_id);
+    $fee_price_object = get_membership_rewnew_price($mduration_table_primary_id);
+    $fee_price = isset($fee_price_object[0]->renew_price) ? $fee_price_object[0]->renew_price : 0;
+    $member_data = get_membership_rewnew_info($mduration_table_primary_id);
 
     $membership_type = get_user_meta($current_user_id, '_membership_type', true);
     $membership_category = get_user_meta($current_user_id, '_membership_category', true);
-    
-    $membership_price = ($fee_price * 80) / 100;
 
     if ($first_name == '' || $last_name == '') {
       $url = $current_page_url . '?renew-error=1';
@@ -149,16 +146,13 @@ function ctp_renew_membership_form_submission() {
     elseif ($femail == '') {
       $url = $current_page_url . '?renew-error=2';
     }
-    elseif ($mtype == '0') {
+    elseif ($mduration_table_primary_id == '0' || $mduration_table_primary_id == '') {
       $url = $current_page_url . '?renew-error=3';
     }
-    elseif ($mduration == '0') {
-      $url = $current_page_url . '?renew-error=4';
-    }
-    elseif ($mcharge != $membership_price) {
+    elseif ($mcharge != $fee_price) {
       $url = $current_page_url . '?renew-error=5';
     }
-    elseif ($membership_type != $mtype && $membership_category != $post_slug) {
+    elseif ($membership_type != $member_data[0]->type && $membership_category != $post_slug) {
       $url = $current_page_url . '?renew-error=6';
     }
     else {
@@ -202,9 +196,24 @@ function ctp_renew_membership_form_submission() {
         'total'    => $mcharge
       ]);
 
-      wc_add_order_item_meta($product_item_id, 'Membership Type', $mtype);
+      wc_add_order_item_meta($product_item_id, 'Membership Type', isset($member_data[0]->type) ? $member_data[0]->type : '');
       wc_add_order_item_meta($product_item_id, 'Membership Category', $post_slug);
-      wc_add_order_item_meta($product_item_id, 'Membership Duration', $mduration);
+      // Add date from today mean current date of this duration
+      // Then put it into order meta
+      if ($member_data[0]->day_month_year == 'day') {
+        $date_added = strtotime(date("Y-m-d") . " +" . $member_data[0]->duration . " day");
+      }
+      elseif ($member_data[0]->day_month_year == 'month') {
+        $date_added = strtotime(date("Y-m-d") . " +" . $member_data[0]->duration . " month");
+      }
+      elseif ($member_data[0]->day_month_year == 'year') {
+        $date_added = strtotime(date("Y-m-d") . " +" . $member_data[0]->duration . " year");
+      }
+      else {
+        $date_added = date("Y-m-d");
+      }
+
+      wc_add_order_item_meta($product_item_id, 'Membership Duration', isset($member_data[0]->duration) ? date("Y-m-d") . ' - ' . date("Y-m-d", $date_added) : '');
       wc_add_order_item_meta($product_item_id, 'First name', $first_name);
       wc_add_order_item_meta($product_item_id, 'Last name', $last_name);
       wc_add_order_item_meta($product_item_id, 'Email', $femail);
@@ -221,7 +230,7 @@ function ctp_renew_membership_form_submission() {
     }
   }
   else {
-    $url = get_permalink(get_page_by_path('security-error'));    
+    $url = $current_page_url . '?error=5';  
   }
 
   wp_redirect(esc_url($url));
