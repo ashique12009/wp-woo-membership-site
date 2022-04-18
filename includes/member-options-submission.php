@@ -81,7 +81,7 @@ function sf_membership_options_edit_form_submission() {
         }
         else {
             // Check duplicate member type
-            if (edit_membership_duplicacy_check($primary_id, $member_product_id, $member_type)) {
+            if (edit_membership_duplicacy_check($primary_id, $member_product_id, $member_type, $start_date, $end_date)) {
                 $data = [
                     'user_id'       => $current_user_id,
                     'post_id'       => $member_product_id,

@@ -26,9 +26,9 @@ function get_membership_info($product_id, $member_type) {
     return $result;
 }
 
-function edit_membership_duplicacy_check($primary_id, $product_id, $member_type) {
+function edit_membership_duplicacy_check($primary_id, $product_id, $member_type, $start_date, $end_date) {
     global $wpdb;
-    $sql = "SELECT * FROM {$wpdb->prefix}sf_member_options WHERE id!=$primary_id AND type='$member_type' AND post_id=" . $product_id;
+    $sql = "SELECT * FROM {$wpdb->prefix}sf_member_options WHERE id!=$primary_id AND type='$member_type' AND start_date='$start_date' AND end_date='$end_date' AND post_id=" . $product_id;
     $result = $wpdb->get_results($sql);
 
     if (count($result) > 0)
